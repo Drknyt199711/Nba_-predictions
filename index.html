@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NBA Game Predictor - Advanced basketball analytics and prediction tool">
+    <title>NBA Game Predictor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1d428a">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>NBA Game Predictor</h1>
+            <nav class="tabs">
+                <button class="tab-button active" data-tab="predict-game">Predict Game</button>
+                <button class="tab-button" data-tab="teams-rosters">Teams & Rosters</button>
+                <button class="tab-button" data-tab="all-teams">All Teams</button>
+                <button class="tab-button" data-tab="all-players">All Players</button>
+                <button class="tab-button" data-tab="live-game-predictor">Live Game Predictor</button>
+                <button class="tab-button" data-tab="data-import">Data Import</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="predict-game" class="tab-content active">
+            <h2>Predict Game</h2>
+            <div class="prediction-inputs">
+                <div class="team-selection">
+                    <label for="home-team-select">Home Team:</label>
+                    <select id="home-team-select"></select>
+                </div>
+                <div class="team-selection">
+                    <label for="away-team-select">Away Team:</label>
+                    <select id="away-team-select"></select>
+                </div>
+                <button id="predict-game-button" class="btn btn-primary"><i class="fas fa-calculator"></i> Predict Game</button>
+            </div>
+            <div class="prediction-status-message"></div>
+            <div class="prediction-results">
+                <h3>Predicted Scores:</h3>
+                <p id="predicted-scores"></p>
+                <h3>Win Probability:</h3>
+                <p id="win-probability"></p>
+            </div>
+            <div class="chart-container">
+                <canvas id="score-distribution-chart"></canvas>
+            </div>
+        </section>
+
+        <section id="teams-rosters" class="tab-content">
+            <h2 id="rosters-header">Teams & Rosters</h2>
+            <div class="rosters-grid">
+                <div class="home-roster">
+                    <h3 id="home-roster-header">Home Team Roster</h3>
+                    <div class="roster-table-container">
+                        <table class="roster-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Pos</th>
+                                    <th>PPG</th>
+                                    <th>MPG</th>
+                                    <th>Expected Minutes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="home-roster-body">
+                                </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">Total Home Minutes:</td>
+                                    <td class="minutes-total" id="home-minutes-total">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="away-roster">
+                    <h3 id="away-roster-header">Away Team Roster</h3>
+                    <div class="roster-table-container">
+                        <table class="roster-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Pos</th>
+                                    <th>PPG</th>
+                                    <th>MPG</th>
+                                    <th>Expected Minutes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="away-roster-body">
+                                </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4">Total Away Minutes:</td>
+                                    <td class="minutes-total" id="away-minutes-total">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="all-teams" class="tab-content">
+            <h2>All Teams</h2>
+            <input type="text" id="all-teams-search" class="search-input" placeholder="Search teams...">
+            <div class="table-container">
+                <table id="all-teams-table" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Abbr.</th>
+                            <th>DRtg/A</th>
+                            </tr>
+                    </thead>
+                    <tbody id="all-teams-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="all-players" class="tab-content">
+            <h2>All Players</h2>
+            <input type="text" id="all-players-search" class="search-input" placeholder="Search players...">
+            <div class="table-container">
+                <table id="all-players-table" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Pos</th>
+                            <th>Team</th>
+                            <th>MP</th>
+                            <th>PTS</th>
+                            <th>FG%</th>
+                            <th>3P%</th>
+                            <th>2P%</th>
+                            <th>FT%</th>
+                            </tr>
+                    </thead>
+                    <tbody id="all-players-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="live-game-predictor" class="tab-content">
+            <h2>Live Game Predictor</h2>
+            <p>Predict game outcomes based on current scores and time remaining.</p>
+            <div class="live-predictor-teams">
+                <span id="live-home-team">Home Team: [Select teams in Predict Game tab]</span> vs. <span id="live-away-team">Away Team: [Select teams in Predict Game tab]</span>
+            </div>
+            <div class="live-inputs">
+                <div class="input-group">
+                    <label for="live-quarter">Current Quarter:</label>
+                    <select id="live-quarter">
+                        <option value="1">1st Quarter</option>
+                        <option value="2">2nd Quarter</option>
+                        <option value="3">3rd Quarter</option>
+                        <option value="4">4th Quarter</option>
+                        <option value="OT1">Overtime 1</option>
+                        <option value="OT2">Overtime 2</option>
+                        <option value="OT3">Overtime 3</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="live-time-remaining">Time Remaining (MM:SS):</label>
+                    <input type="text" id="live-time-remaining" placeholder="e.g., 05:30">
+                </div>
+                <div class="input-group">
+                    <label for="live-home-score">Home Score:</label>
+                    <input type="number" id="live-home-score" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="live-away-score">Away Score:</label>
+                    <input type="number" id="live-away-score" min="0" value="0">
+                </div>
+                <button id="calculate-live-probability" class="btn btn-secondary">Calculate Live Probability</button>
+            </div>
+            <div class="live-results">
+                <h3>Current Win Probability:</h3>
+                <p id="live-win-probability"></p>
+            </div>
+        </section>
+
+        <section id="data-import" class="tab-content">
+            <h2>Data Import</h2>
+            <p>Import your NBA statistics from CSV files. New imports will replace existing data for that season/type.</p>
+
+            <div class="import-section">
+                <h3>Current Season Statistics</h3>
+                <p>Upload the CSV files for the CURRENT NBA season (e.g., 2024-2025).</p>
+                <div class="file-upload-group">
+                    <label for="current-players-file">Player Data (<code>Players.csv</code>):</label>
+                    <input type="file" id="current-players-file" accept=".csv">
+                    <button class="btn btn-success import-button" data-type="players" data-season="current">Import Current Player Data</button>
+                    <button class="btn btn-danger delete-button" data-type="players" data-season="current">Delete Current Player Data</button>
+                </div>
+                <div class="file-upload-group">
+                    <label for="current-teams-file">Team Data (<code>Teams.csv</code>):</label>
+                    <input type="file" id="current-teams-file" accept=".csv">
+                    <button class="btn btn-success import-button" data-type="teams" data-season="current">Import Current Team Data</button>
+                    <button class="btn btn-danger delete-button" data-type="teams" data-season="current">Delete Current Team Data</button>
+                </div>
+                <p id="current-import-status" class="import-status"></p>
+            </div>
+
+            <div class="import-section">
+                <h3>Previous Season Statistics (PS-1)</h3>
+                <p>Upload the CSV files for the PREVIOUS NBA season (e.g., 2023-2024).</p>
+                <div class="file-upload-group">
+                    <label for="ps1-players-file">Player Data (<code>Players_PS-1yrs.csv</code>):</label>
+                    <input type="file" id="ps1-players-file" accept=".csv">
+                    <button class="btn btn-success import-button" data-type="players" data-season="ps1">Import PS-1 Player Data</button>
+                    <button class="btn btn-danger delete-button" data-type="players" data-season="ps1">Delete PS-1 Player Data</button>
+                </div>
+                <div class="file-upload-group">
+                    <label for="ps1-teams-file">Team Data (<code>Teams_PS-1yrs.csv</code>):</label>
+                    <input type="file" id="ps1-teams-file" accept=".csv">
+                    <button class="btn btn-success import-button" data-type="teams" data-season="ps1">Import PS-1 Team Data</button>
+                    <button class="btn btn-danger delete-button" data-type="teams" data-season="ps1">Delete PS-1 Team Data</button>
+                </div>
+                <p id="ps1-import-status" class="import-status"></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+    <script src="dataManager.js"></script>
+    <script src="predictionEngine.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        // Register service worker for PWA capabilities
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

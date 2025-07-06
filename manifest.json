@@ -1,0 +1,21 @@
+{
+    "name": "NBA_Game_Predictor",
+    "short_name": "NBA Predictor",
+    "description": "Advanced NBA game prediction tool",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1d428a",
+    "icons": [
+        {
+            "src": "icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

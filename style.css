@@ -1,0 +1,474 @@
+:root {
+    --primary: #1d428a; /* NBA Dark Blue */
+    --primary-dark: #0c2b61;
+    --secondary: #c9082a; /* NBA Red */
+    --secondary-dark: #a00622;
+    --accent: #ffb81c; /* NBA Gold */
+    --light: #f5f7fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --light-gray: #e9ecef;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--light);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+header {
+    background-color: var(--primary);
+    color: var(--light);
+    padding: 1rem 0;
+    box-shadow: var(--box-shadow);
+}
+
+header h1 {
+    text-align: center;
+    margin: 0 0 1rem 0;
+    font-size: 2.2rem;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tab-button {
+    background-color: var(--primary-dark);
+    color: var(--light);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+    flex-shrink: 0; /* Prevent shrinking on smaller screens */
+}
+
+.tab-button:hover {
+    background-color: var(--secondary);
+}
+
+.tab-button.active {
+    background-color: var(--secondary);
+    box-shadow: 0 0 0 3px var(--accent), var(--box-shadow);
+}
+
+main {
+    padding: 2rem 0;
+}
+
+.tab-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: none; /* Hidden by default */
+}
+
+.tab-content.active {
+    display: block;
+}
+
+h2 {
+    color: var(--primary-dark);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+h3 {
+    color: var(--secondary-dark);
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* --- Form Elements & Buttons --- */
+.input-group,
+.team-selection,
+.file-upload-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--dark);
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+input[type="file"] {
+    padding: 0.5rem 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: var(--transition);
+    text-align: center;
+    text-decoration: none;
+    margin-right: 0.5rem; /* For buttons in a row */
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--light);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--secondary);
+    color: var(--light);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-dark);
+}
+
+.btn-success {
+    background-color: var(--success);
+    color: #fff;
+}
+
+.btn-success:hover {
+    filter: brightness(90%); /* Fallback for direct CSS */
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    filter: brightness(90%); /* Fallback for direct CSS */
+}
+
+/* --- Predict Game Tab Specifics --- */
+.prediction-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.prediction-inputs .team-selection {
+    flex: 1 1 300px; /* Allows flexibility but minimum width */
+}
+
+#predict-game-button {
+    flex-basis: 100%;
+    margin-top: 1rem;
+}
+
+.prediction-results {
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.prediction-results p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+    margin: 0.5rem 0;
+}
+
+.prediction-status-message {
+    text-align: center;
+    font-style: italic;
+    color: var(--gray);
+    margin-bottom: 1rem;
+    min-height: 1.5rem; /* Ensure space even when empty */
+}
+
+.chart-container {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    height: 400px; /* Fixed height for chart */
+    position: relative; /* For chart responsiveness */
+}
+
+/* --- Teams & Rosters Tab Specifics --- */
+.rosters-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack on small screens */
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .rosters-grid {
+        grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+    }
+}
+
+.roster-table-container {
+    max-height: 500px; /* Limit height for scrolling */
+    overflow-y: auto;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+}
+
+.roster-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.roster-table th,
+.roster-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.roster-table th {
+    background-color: var(--primary-dark);
+    color: var(--light);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.roster-table tbody tr:nth-child(even) {
+    background-color: var(--light);
+}
+
+.roster-table input[type="number"] {
+    width: 70px;
+    padding: 0.4rem;
+    text-align: center;
+}
+
+.minutes-total {
+    font-weight: bold;
+    text-align: right !important; /* Override default text-align */
+    background-color: var(--light-gray);
+}
+
+.minutes-total.warning {
+    color: var(--warning);
+    background-color: #fff3cd; /* Actual fallback color */
+}
+
+.minutes-total.danger {
+    color: var(--danger);
+    background-color: #f8d7da; /* Actual fallback color */
+}
+
+
+/* --- All Teams / All Players Tab Specifics --- */
+.search-input {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.table-container {
+    max-height: 600px; /* Limit height for scrolling on large tables */
+    overflow-y: auto;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.data-table th {
+    background-color: var(--primary);
+    color: var(--light);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: var(--light);
+}
+
+/* --- Live Game Predictor Tab Specifics --- */
+.live-predictor-teams {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-dark);
+}
+
+.live-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+#calculate-live-probability {
+    grid-column: 1 / -1; /* Span all columns */
+    margin-top: 1rem;
+}
+
+.live-results {
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.live-results p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-dark);
+    margin: 0.5rem 0;
+}
+
+
+/* --- Data Import Tab Specifics --- */
+.import-section {
+    background-color: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.import-section h3 {
+    margin-top: 0;
+    color: var(--primary-dark);
+}
+
+.file-upload-group {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    background-color: #fff;
+}
+
+.file-upload-group label {
+    margin-bottom: 0; /* Align with flex items */
+    flex-basis: 100%; /* Take full width on small screens */
+    font-weight: normal; /* Less bold than section headers */
+}
+
+.file-upload-group input[type="file"] {
+    flex-grow: 1; /* Allows file input to take available space */
+    min-width: 180px; /* Ensure it's not too small */
+}
+
+.import-button, .delete-button {
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+.import-status {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: bold;
+    min-height: 1.2rem;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 767px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .tabs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tab-button {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    .tab-content {
+        padding: 1.5rem;
+    }
+
+    .prediction-inputs {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .file-upload-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .file-upload-group label,
+    .file-upload-group input[type="file"],
+    .file-upload-group .btn {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+}
